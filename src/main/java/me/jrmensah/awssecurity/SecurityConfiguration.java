@@ -10,17 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-
         http
                 .authorizeRequests()
+                .antMatchers("/").access("hasAuthority('USER') or hasAuthority('ADMIN')")
+                .antMatchers("/admin").access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
-                .and()
-                .httpBasic();
+                .and().httpBasic();
 
 
     }
@@ -28,7 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception {
         auth.inMemoryAuthentication().withUser("user")
-                .password("password").roles("USER");
+                .password("password").authorities("USER").and()
+        .withUser("admin").password("password").authorities("ADMIN");
     }
 
 }
