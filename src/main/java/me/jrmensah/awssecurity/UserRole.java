@@ -1,6 +1,6 @@
 package me.jrmensah.awssecurity;
 
-import org.springframework.security.core.userdetails.User;
+
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -16,15 +16,8 @@ public class UserRole {
     private String role;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Collection<User> users;
+    private Collection<UserData> users;
 
-    public UserRole() {
-    }
-
-    public UserRole(String role, Collection<User> users) {
-        this.role = role;
-        this.users = users;
-    }
 
     public long getId() {
         return id;
@@ -42,11 +35,11 @@ public class UserRole {
         this.role = role;
     }
 
-    public Collection<User> getUsers() {
+    public Collection<UserData> getUsers() {
         return users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(Collection<UserData> users) {
         this.users = users;
     }
 }

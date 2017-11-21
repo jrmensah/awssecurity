@@ -1,14 +1,15 @@
 package me.jrmensah.awssecurity;
 
-import org.springframework.data.annotation.Id;
 
-import javax.management.relation.Role;
+
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Table(name="USER_DATA")
 public class UserData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -34,20 +35,8 @@ public class UserData {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name= "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Collection<UserRole> roles;
 
-    public UserData() {
-    }
-
-    public UserData(String email, String password, String firstName, String lastName, String enabled, String username, Collection<Role> roles) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.enabled = enabled;
-        this.username = username;
-        this.roles = roles;
-    }
 
     public long getId() {
         return id;
@@ -105,11 +94,11 @@ public class UserData {
         this.username = username;
     }
 
-    public Collection<Role> getRoles() {
+    public Collection<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Collection<UserRole> roles) {
         this.roles = roles;
     }
 }
