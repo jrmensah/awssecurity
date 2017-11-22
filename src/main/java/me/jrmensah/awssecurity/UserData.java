@@ -37,6 +37,20 @@ public class UserData {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<UserRole> roles;
 
+    public UserData(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+    }
+
+    public UserData(String email, String password, String firstName, String lastName, String enabled, String username, Collection<UserRole> roles) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+        this.roles = roles;
+    }
+
+
 
     public long getId() {
         return id;
@@ -100,5 +114,11 @@ public class UserData {
 
     public void setRoles(Collection<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(UserRole user) {
+    }
+
+    public void setEnabled(boolean b) {
     }
 }
