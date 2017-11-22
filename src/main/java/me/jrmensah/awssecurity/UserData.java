@@ -4,6 +4,7 @@ package me.jrmensah.awssecurity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -14,6 +15,7 @@ public class UserData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -27,7 +29,7 @@ public class UserData {
     private String lastName;
 
     @Column(name = "enabled")
-    private String enabled;
+    private boolean enabled;
 
     @Column(name = "username")
     private String username;
@@ -37,10 +39,20 @@ public class UserData {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<UserRole> roles;
 
-    public UserData(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+    public UserData() {
     }
 
-    public UserData(String email, String password, String firstName, String lastName, String enabled, String username, Collection<UserRole> roles) {
+    public UserData(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+        this.roles = roles;
+    }
+
+    public UserData(String email, String password, String firstName, String lastName, boolean enabled, String username, Collection<UserRole> roles) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -92,13 +104,6 @@ public class UserData {
         this.lastName = lastName;
     }
 
-    public String getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(String enabled) {
-        this.enabled = enabled;
-    }
 
     public String getUsername() {
         return username;
@@ -120,5 +125,12 @@ public class UserData {
     }
 
     public void setEnabled(boolean b) {
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void addRole(UserRole userRole, UserRole adminRole) {
     }
 }
